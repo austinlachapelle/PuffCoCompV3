@@ -561,7 +561,7 @@ function Leaf({size=13,filled,accent="#6C5CE7"}){
 const ML=({children,style})=><div style={{fontSize:9,letterSpacing:2.5,color:"rgba(255,255,255,0.3)",textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace",marginBottom:10,...style}}>{children}</div>;
 const Input=({value,onChange,placeholder,style,type="text",rows,accept,onFileChange})=>{const base={width:"100%",background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:12,padding:"10px 14px",fontSize:13,color:"white",outline:"none",fontFamily:"'Syne','Helvetica Neue',sans-serif",transition:"border 0.3s",...style};if(rows)return <textarea rows={rows} value={value} onChange={onChange} placeholder={placeholder} style={{...base,resize:"none"}}/>;return <input type={type} value={value} onChange={onChange} placeholder={placeholder} style={base} accept={accept}/>};
 const Btn=({children,onClick,accent,accentGrad,disabled,secondary,small,style})=><button onClick={onClick} disabled={disabled} style={{width:"100%",padding:small?"10px 0":secondary?"12px 0":"16px 0",borderRadius:14,border:secondary?"1.5px solid rgba(255,255,255,0.1)":"none",background:secondary?"transparent":disabled?"rgba(255,255,255,0.06)":(accentGrad||accent||"#6C5CE7"),color:secondary?"rgba(255,255,255,0.5)":disabled?"rgba(255,255,255,0.3)":"#000",fontSize:small?9:11,letterSpacing:3,textTransform:"uppercase",fontWeight:600,fontFamily:"'JetBrains Mono',monospace",cursor:disabled?"not-allowed":"pointer",WebkitTapHighlightColor:"transparent",...style}}>{children}</button>;
-function NavItem({icon,label,active,onClick,accent,accentGrad}){return <button onClick={onClick} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,background:"none",border:"none",cursor:"pointer",padding:"7px 14px",borderRadius:12,position:"relative",WebkitTapHighlightColor:"transparent"}}><span style={{fontSize:18,opacity:active?1:0.35}}>{icon}</span><span style={{fontSize:8,letterSpacing:2,textTransform:"uppercase",color:active?"rgba(255,255,255,0.85)":"rgba(255,255,255,0.25)",fontFamily:"'JetBrains Mono',monospace"}}>{label}</span>{active&&<div style={{position:"absolute",bottom:0,width:14,height:2,borderRadius:1,background:accentGrad||accent}}/>}</button>}
+function NavItem({icon,label,active,onClick,accent,accentGrad}){return <button onClick={onClick} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:4,background:"none",border:"none",cursor:"pointer",padding:"8px 16px",borderRadius:12,position:"relative",WebkitTapHighlightColor:"transparent"}}><span style={{fontSize:22,opacity:active?1:0.35}}>{icon}</span><span style={{fontSize:9,letterSpacing:2,textTransform:"uppercase",color:active?"rgba(255,255,255,0.85)":"rgba(255,255,255,0.25)",fontFamily:"'JetBrains Mono',monospace"}}>{label}</span>{active&&<div style={{position:"absolute",bottom:0,width:14,height:2,borderRadius:1,background:accentGrad||accent}}/>}</button>}
 
 // ─── Flame Icon ────────────────────────────────────────
 function FlameIcon({size=28,accent="#6C5CE7",pulse=false}){return <svg viewBox="0 0 120 120" width={size} height={size}><defs><linearGradient id="fgO" x1="0.5" y1="1" x2="0.5" y2="0"><stop offset="0%" stopColor={accent} stopOpacity="0.95"/><stop offset="50%" stopColor={accent}/><stop offset="100%" stopColor="white" stopOpacity="0.7"/></linearGradient><linearGradient id="fgI" x1="0.5" y1="1" x2="0.5" y2="0"><stop offset="0%" stopColor={accent} stopOpacity="0.6"/><stop offset="100%" stopColor="white" stopOpacity="0.9"/></linearGradient></defs><path d="M60 8 C54 20,38 35,28 55 C18 75,20 95,35 105 C45 112,55 115,60 115 C65 115,75 112,85 105 C100 95,102 75,92 55 C82 35,66 20,60 8Z" fill="url(#fgO)" opacity="0.95"/><path d="M55 38 C50 50,40 62,38 78 C36 90,42 102,52 106 C58 108,64 106,68 100 C74 90,70 78,64 65 C60 55,57 45,55 38Z" fill="url(#fgI)" opacity="0.85"/><ellipse cx="54" cy="88" rx="6" ry="12" fill="white" opacity="0.5"/></svg>}
@@ -951,13 +951,13 @@ function PuffcoCompanion() {
               <span style={{fontSize:7,fontFamily:"'JetBrains Mono',monospace",color:"rgba(255,255,255,0.2)",letterSpacing:1}}>v{APP_VERSION}</span>
             </button>
           </div>
-          <div style={{display:"flex",alignItems:"center",gap:10}}>
-            {streak>1&&<div style={{display:"flex",alignItems:"center",gap:4,padding:"4px 10px",borderRadius:16,background:"rgba(255,138,0,0.08)",border:"1px solid rgba(255,138,0,0.2)"}}><span style={{fontSize:10,color:"#ff8a00",fontWeight:600}}>🔥 {streak}d</span></div>}
-            <div style={{display:"flex",alignItems:"center",gap:4,padding:"5px 10px",borderRadius:16,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)"}}><span style={{fontSize:12}}>{lvl.emoji}</span><span style={{fontSize:9,fontFamily:"'JetBrains Mono',monospace",color:"rgba(255,255,255,0.4)",letterSpacing:1}}>Lv.{lvl.level}</span></div>
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            {streak>1&&<div style={{display:"flex",alignItems:"center",gap:5,padding:"6px 12px",borderRadius:16,background:"rgba(255,138,0,0.08)",border:"1px solid rgba(255,138,0,0.2)"}}><span style={{fontSize:12,color:"#ff8a00",fontWeight:600}}>🔥 {streak}d</span></div>}
+            <div style={{display:"flex",alignItems:"center",gap:5,padding:"6px 12px",borderRadius:16,background:"rgba(255,255,255,0.03)",border:"1px solid rgba(255,255,255,0.06)"}}><span style={{fontSize:16}}>{lvl.emoji}</span><span style={{fontSize:11,fontFamily:"'JetBrains Mono',monospace",color:"rgba(255,255,255,0.4)",letterSpacing:1}}>Lv.{lvl.level}</span></div>
           </div>
         </header>
 
-        <div ref={scrollRef} style={{flex:1,overflowY:"auto",overflowX:"hidden",WebkitOverflowScrolling:"touch",paddingBottom:90}}>
+        <div ref={scrollRef} style={{flex:1,overflowY:"auto",overflowX:"hidden",WebkitOverflowScrolling:"touch",paddingBottom:120}}>
 
           {/* ─── STASH TAB ─── */}
           {tab==="stash"&&<StashTab stash={stash} accent={accent} stashFilter={stashFilter} setStashFilter={setStashFilter} stashSearch={stashSearch} setStashSearch={setStashSearch} onSelect={setSelectedItem} onRepeat={repeatLast} strainMap={strainMap} setStrainView={setStrainView} setTab={switchTab} />}
@@ -985,14 +985,14 @@ function PuffcoCompanion() {
             </div>
             <NavItem icon="🔧" label="Care" active={tab==="care"} onClick={()=>switchTab("care")} accent={accent} accentGrad={accentGrad} />
             {profile.avatar ? (
-              <button onClick={()=>switchTab("profile")} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:5,background:"none",border:"none",cursor:"pointer",padding:"7px 14px",borderRadius:12,position:"relative"}}>
-                <div style={{position:"relative",width:20,height:20}}>
-                  <PfpFrame frameId={profile.frame||"none"} size={20} accent={accent} accentGrad={accentGrad} />
-                  <div style={{width:20,height:20,borderRadius:"50%",overflow:"hidden",border:`1.5px solid ${tab==="profile"?accent:"rgba(255,255,255,0.15)"}`}}>
+              <button onClick={()=>switchTab("profile")} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:4,background:"none",border:"none",cursor:"pointer",padding:"8px 16px",borderRadius:12,position:"relative"}}>
+                <div style={{position:"relative",width:24,height:24}}>
+                  <PfpFrame frameId={profile.frame||"none"} size={24} accent={accent} accentGrad={accentGrad} />
+                  <div style={{width:24,height:24,borderRadius:"50%",overflow:"hidden",border:`1.5px solid ${tab==="profile"?accent:"rgba(255,255,255,0.15)"}`}}>
                     <img src={profile.avatar} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}} />
                   </div>
                 </div>
-                <span style={{fontSize:8,letterSpacing:2,textTransform:"uppercase",color:tab==="profile"?"rgba(255,255,255,0.85)":"rgba(255,255,255,0.25)",fontFamily:"'JetBrains Mono',monospace"}}>Profile</span>
+                <span style={{fontSize:9,letterSpacing:2,textTransform:"uppercase",color:tab==="profile"?"rgba(255,255,255,0.85)":"rgba(255,255,255,0.25)",fontFamily:"'JetBrains Mono',monospace"}}>Profile</span>
                 {tab==="profile"&&<div style={{position:"absolute",bottom:0,width:14,height:2,borderRadius:1,background:accent}}/>}
               </button>
             ) : (
@@ -1014,8 +1014,8 @@ function PuffcoCompanion() {
       {/* Session Edit Modal (#46) */}
       {editingSession&&(
         <div style={{position:"fixed",inset:0,zIndex:72,background:"rgba(4,4,12,0.98)",overflowY:"auto"}} onPointerDown={e=>{if(e.target===e.currentTarget)setEditingSession(null)}}>
-          <div style={{maxWidth:440,margin:"0 auto",padding:"60px 24px 40px"}}>
-            <button onClick={()=>setEditingSession(null)} style={{position:"fixed",top:20,right:20,background:"rgba(255,255,255,0.06)",border:"none",borderRadius:"50%",width:36,height:36,color:"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,WebkitTapHighlightColor:"transparent"}}>✕</button>
+          <div style={{maxWidth:440,margin:"0 auto",padding:"max(70px, calc(env(safe-area-inset-top, 20px) + 50px)) 24px 40px"}}>
+            <button onClick={()=>setEditingSession(null)} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:42,height:42,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",zIndex:75,WebkitTapHighlightColor:"transparent"}}>✕</button>
             <h2 style={{fontSize:18,fontWeight:300,letterSpacing:3,textTransform:"uppercase",marginBottom:20}}>Edit Session</h2>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12,marginBottom:14}}>
               <div><ML>Brand</ML><Input value={editingSession.brand||""} onChange={e=>setEditingSession(p=>({...p,brand:e.target.value}))}/></div>
@@ -1046,8 +1046,8 @@ function PuffcoCompanion() {
       {/* Changelog Modal */}
       {changelogOpen&&(
         <div style={{position:"fixed",inset:0,zIndex:75,background:"rgba(4,4,12,0.98)",overflowY:"auto"}} onPointerDown={e=>{if(e.target===e.currentTarget)setChangelogOpen(false)}}>
-          <div style={{maxWidth:440,margin:"0 auto",padding:"60px 24px 40px"}}>
-            <button onClick={()=>setChangelogOpen(false)} style={{position:"fixed",top:20,right:20,background:"rgba(255,255,255,0.06)",border:"none",borderRadius:"50%",width:36,height:36,color:"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,WebkitTapHighlightColor:"transparent"}}>✕</button>
+          <div style={{maxWidth:440,margin:"0 auto",padding:"max(70px, calc(env(safe-area-inset-top, 20px) + 50px)) 24px 40px"}}>
+            <button onClick={()=>setChangelogOpen(false)} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:42,height:42,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",zIndex:75,WebkitTapHighlightColor:"transparent"}}>✕</button>
 
             <div style={{fontSize:10,letterSpacing:4,color:"rgba(255,255,255,0.25)",textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace",marginBottom:4}}>Changelog</div>
             <h2 style={{fontSize:22,fontWeight:600,marginBottom:24}}>What's New</h2>
@@ -1237,7 +1237,9 @@ function SessionOverlay({sessionPhase,setSessionPhase,sessionData,setSessionData
 
   return (
     <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(4,4,12,0.98)",overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
-      <div style={{position:"relative",zIndex:1,width:"100%",maxWidth:440,margin:"0 auto",padding:"0 24px",display:"flex",flexDirection:"column",minHeight:"100%",paddingTop:"max(28px, env(safe-area-inset-top, 28px))",paddingBottom:40}}>
+      <div style={{position:"relative",zIndex:1,width:"100%",maxWidth:440,margin:"0 auto",padding:"0 24px",display:"flex",flexDirection:"column",minHeight:"100%",paddingTop:"max(54px, calc(env(safe-area-inset-top, 28px) + 26px))",paddingBottom:40}}>
+        {/* Close button */}
+        <button onClick={onClose} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:40,height:40,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:65,WebkitTapHighlightColor:"transparent"}}>✕</button>
 
         {/* Step Indicator */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:0,marginBottom:24,padding:"0 10px"}}>
@@ -1620,9 +1622,9 @@ function StashTab({stash,accent,stashFilter,setStashFilter,stashSearch,setStashS
         <div><h2 style={{fontSize:20,fontWeight:600,letterSpacing:-0.3}}>Session Log</h2><p style={{fontSize:11,color:"rgba(255,255,255,0.3)",marginTop:5,fontFamily:"'JetBrains Mono',monospace"}}>{stash.length} dab{stash.length!==1?"s":""} logged</p></div>
         <div style={{display:"flex",alignItems:"center",gap:8}}>
           {/* View toggle */}
-          <div style={{display:"flex",borderRadius:8,overflow:"hidden",border:"1px solid rgba(255,255,255,0.06)"}}>
-            <button onClick={()=>setViewMode("list")} style={{padding:"4px 8px",background:viewMode==="list"?`${accent}20`:"transparent",border:"none",color:viewMode==="list"?accent:"rgba(255,255,255,0.25)",fontSize:10,cursor:"pointer",WebkitTapHighlightColor:"transparent"}}>☰</button>
-            <button onClick={()=>setViewMode("shelf")} style={{padding:"4px 8px",background:viewMode==="shelf"?`${accent}20`:"transparent",border:"none",color:viewMode==="shelf"?accent:"rgba(255,255,255,0.25)",fontSize:10,cursor:"pointer",WebkitTapHighlightColor:"transparent"}}>⊞</button>
+          <div style={{display:"flex",borderRadius:10,overflow:"hidden",border:"1px solid rgba(255,255,255,0.08)"}}>
+            <button onClick={()=>setViewMode("list")} style={{padding:"8px 12px",background:viewMode==="list"?`${accent}20`:"transparent",border:"none",color:viewMode==="list"?accent:"rgba(255,255,255,0.25)",fontSize:16,cursor:"pointer",WebkitTapHighlightColor:"transparent"}}>☰</button>
+            <button onClick={()=>setViewMode("shelf")} style={{padding:"8px 12px",background:viewMode==="shelf"?`${accent}20`:"transparent",border:"none",color:viewMode==="shelf"?accent:"rgba(255,255,255,0.25)",fontSize:16,cursor:"pointer",WebkitTapHighlightColor:"transparent"}}>⊞</button>
           </div>
           {Object.keys(strainMap).length>0&&<button onClick={()=>switchTab("encyclopedia")} style={{background:"none",border:"none",color:accent,fontSize:9,letterSpacing:2,textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace",fontWeight:600,cursor:"pointer"}}>Encyclopedia →</button>}
         </div>
@@ -2097,7 +2099,7 @@ function ProfileTab({profile,setProfile,accent,stash,lvl,xp,streak,unlocked,prof
       {/* Frame Preview Modal */}
       {previewFrame && (
         <div style={{position:"fixed",inset:0,zIndex:72,background:"rgba(4,4,12,0.97)",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}} onPointerDown={e=>{if(e.target===e.currentTarget)setPreviewFrame(null)}}>
-          <button onClick={()=>setPreviewFrame(null)} style={{position:"fixed",top:20,right:20,background:"rgba(255,255,255,0.06)",border:"none",borderRadius:"50%",width:36,height:36,color:"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,WebkitTapHighlightColor:"transparent"}}>✕</button>
+          <button onClick={()=>setPreviewFrame(null)} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:42,height:42,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",zIndex:75,WebkitTapHighlightColor:"transparent"}}>✕</button>
           <div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:20}}>
             {/* Large preview with avatar */}
             <div style={{position:"relative",width:120,height:120}}>
@@ -2344,8 +2346,8 @@ function StrainDetailModal({strainKey,strainMap,accent,onClose,onSelect}) {
 
   return (
     <div style={{position:"fixed",inset:0,zIndex:70,background:"rgba(4,4,12,0.96)",overflowY:"auto"}} onPointerDown={e=>{if(e.target===e.currentTarget)onClose()}}>
-      <div style={{maxWidth:440,margin:"0 auto",padding:"60px 24px 40px"}}>
-        <button onClick={onClose} style={{position:"fixed",top:20,right:20,background:"rgba(255,255,255,0.06)",border:"none",borderRadius:"50%",width:36,height:36,color:"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2}}>✕</button>
+      <div style={{maxWidth:440,margin:"0 auto",padding:"max(70px, calc(env(safe-area-inset-top, 20px) + 50px)) 24px 40px"}}>
+        <button onClick={onClose} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:42,height:42,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",zIndex:75,WebkitTapHighlightColor:"transparent"}}>✕</button>
         {photo&&<div style={{width:"100%",height:160,borderRadius:18,overflow:"hidden",marginBottom:16}}><img src={photo} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/></div>}
         <Glass style={{marginBottom:14}}>
           <div style={{fontSize:9,color:"rgba(255,255,255,0.3)",letterSpacing:2,textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace"}}>{data.brand}</div>
@@ -2377,8 +2379,8 @@ function DetailModal({item,accent,onClose,onDelete,onRepeat,onShare,onEdit}) {
   const z=getZone(item.finalTempF||500);
   return (
     <div style={{position:"fixed",inset:0,zIndex:70,background:"rgba(4,4,12,0.96)",overflowY:"auto"}} onPointerDown={e=>{if(e.target===e.currentTarget)onClose()}}>
-      <div style={{maxWidth:440,margin:"0 auto",padding:"60px 24px 40px"}}>
-        <button onClick={onClose} style={{position:"fixed",top:20,right:20,background:"rgba(255,255,255,0.06)",border:"none",borderRadius:"50%",width:36,height:36,color:"rgba(255,255,255,0.5)",cursor:"pointer",fontSize:18,display:"flex",alignItems:"center",justifyContent:"center",zIndex:2}}>✕</button>
+      <div style={{maxWidth:440,margin:"0 auto",padding:"max(70px, calc(env(safe-area-inset-top, 20px) + 50px)) 24px 40px"}}>
+        <button onClick={onClose} style={{position:"fixed",top:"max(16px, env(safe-area-inset-top, 16px))",right:16,background:"rgba(255,255,255,0.08)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"50%",width:42,height:42,color:"rgba(255,255,255,0.6)",cursor:"pointer",fontSize:20,display:"flex",alignItems:"center",justifyContent:"center",zIndex:75,WebkitTapHighlightColor:"transparent"}}>✕</button>
         {item.photo&&<div style={{width:"100%",height:180,borderRadius:18,overflow:"hidden",marginBottom:14}}><img src={item.photo} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/></div>}
         <Glass style={{marginBottom:14}}><div style={{fontSize:9,color:"rgba(255,255,255,0.3)",letterSpacing:2,textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace"}}>{item.brand}</div><div style={{fontSize:22,fontWeight:500,marginTop:4}}>{item.strain}</div><div style={{display:"flex",gap:8,marginTop:6}}><span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{item.classification}</span><span style={{color:"rgba(255,255,255,0.15)"}}>·</span><span style={{fontSize:11,color:"rgba(255,255,255,0.4)"}}>{item.type}</span></div></Glass>
         <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:14}}>
