@@ -357,7 +357,7 @@ function SmokeBackground({ accent = "#6C5CE7", accent2 }) {
 
   // Noise generation functions — cached so we only compute noise grids once
   useEffect(() => {
-    const W = 200, H = 400;
+    const W = 128, H = 256;
 
     function makeNoise(seed) {
       const grid = [];
@@ -431,18 +431,18 @@ function SmokeBackground({ accent = "#6C5CE7", accent2 }) {
       return blurred;
     }
 
-    // Defer texture generation to not block initial render
+    // Stagger texture generation to avoid blocking the main thread
     setTimeout(() => {
-      noiseCache.current = {
-        W, H,
-        fields: [
-          computeNoiseField(42),
-          computeNoiseField(137),
-          computeNoiseField(271),
-        ]
-      };
-      renderTextures(accent, accent2);
-    }, 100);
+      const f1 = computeNoiseField(42);
+      setTimeout(() => {
+        const f2 = computeNoiseField(137);
+        setTimeout(() => {
+          const f3 = computeNoiseField(271);
+          noiseCache.current = { W, H, fields: [f1, f2, f3] };
+          renderTextures(accent, accent2);
+        }, 50);
+      }, 50);
+    }, 200);
   }, []);
 
   // Render textures with specific accent color — fast because noise is cached
@@ -506,7 +506,7 @@ function SmokeBackground({ accent = "#6C5CE7", accent2 }) {
         @keyframes sr1{0%{transform:translateY(0%) scale(1.08)}100%{transform:translateY(-33.333%) scale(1.08)}}
         @keyframes sr2{0%{transform:translateY(0%) scale(1.11)}100%{transform:translateY(-33.333%) scale(1.11)}}
         @keyframes sr3{0%{transform:translateY(0%) scale(1.14)}100%{transform:translateY(-33.333%) scale(1.14)}}
-        .sl{position:absolute;left:-8%;width:116%;will-change:transform;filter:blur(8px)}
+        .sl{position:absolute;left:-8%;width:116%;will-change:transform;filter:blur(12px)}
         .sl img{width:100%;height:33.334%;display:block}
       `}</style>
 
@@ -660,7 +660,7 @@ function PuffcoCompanion() {
     })();
 
     // Safety net — if storage hangs, force past loading after 2s
-    const safetyTimeout = setTimeout(() => { if (mounted) setLoading(false); }, 2000);
+    const safetyTimeout = setTimeout(() => { if (mounted) setLoading(false); }, 800);
     return () => { mounted = false; clearTimeout(safetyTimeout); };
 
     // ─── PWA Setup ───────────────────────────────────
@@ -889,7 +889,7 @@ function PuffcoCompanion() {
   }
 
   return (
-    <div style={{minHeight:"100vh",background:"#04040c",color:accent,fontFamily:"'Syne','Helvetica Neue',sans-serif",overflow:"hidden",position:"relative"}}>
+    <div style={{height:"100vh",background:"#04040c",color:accent,fontFamily:"'Syne','Helvetica Neue',sans-serif",overflow:"hidden",position:"relative"}}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
         @keyframes twinkle{0%,100%{opacity:0.15}50%{opacity:0.7}}
@@ -899,7 +899,7 @@ function PuffcoCompanion() {
         @keyframes breathe{0%,100%{box-shadow:0 0 16px rgba(108,92,231,0.08)}50%{box-shadow:0 0 32px rgba(108,92,231,0.18)}}
         @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
         *{margin:0;padding:0;box-sizing:border-box}
-        html{background:#04040c}
+        html,body{height:100%;overflow:hidden;background:#04040c}
         body{padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
         ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:2px}
         .fu{}.fu1{}.fu2{}.fu3{}.fu4{}
@@ -939,9 +939,9 @@ function PuffcoCompanion() {
       {/* Session Overlay */}
       {sessionActive && <SessionOverlay sessionPhase={sessionPhase} setSessionPhase={setSessionPhase} sessionData={sessionData} setSessionData={setSessionData} ratingData={ratingData} setRatingData={setRatingData} selectedTempF={selectedTempF} setSelectedTempF={setSelectedTempF} timeLeft={timeLeft} setTimeLeft={setTimeLeft} totalDuration={totalDuration} boosts={boosts} setBoosts={setBoosts} isPaused={isPaused} setIsPaused={setIsPaused} accent={accent} heatProfiles={heatProfiles} activeHP={activeHP} completeSession={completeSession} onClose={resetSession} photoRef={photoRef} knownBrands={[...new Set(stash.map(s=>s.brand).filter(Boolean))].sort()} knownStrains={[...new Set(stash.map(s=>s.strain).filter(Boolean))].sort()} stash={stash} />}
 
-      <div style={{position:"relative",zIndex:1,maxWidth:440,margin:"0 auto",minHeight:"100vh",display:"flex",flexDirection:"column",padding:"0 18px"}}>
+      <div style={{position:"relative",zIndex:1,maxWidth:440,margin:"0 auto",height:"100%",display:"flex",flexDirection:"column",padding:"0 18px"}}>
         {/* Header */}
-        <header className={mounted?"fu fu1":""} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 0 14px"}}>
+        <header style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 0 14px",flexShrink:0}}>
           <div style={{display:"flex",alignItems:"center",gap:10}}>
             <div>
               <div style={{fontSize:10,letterSpacing:4,color:"rgba(255,255,255,0.25)",textTransform:"uppercase",fontFamily:"'JetBrains Mono',monospace"}}>Puffco</div>
@@ -957,7 +957,7 @@ function PuffcoCompanion() {
           </div>
         </header>
 
-        <div ref={scrollRef} style={{flex:1,paddingBottom:100,overflowY:"auto"}}>
+        <div ref={scrollRef} style={{flex:1,overflowY:"auto",overflowX:"hidden",WebkitOverflowScrolling:"touch",paddingBottom:90}}>
 
           {/* ─── STASH TAB ─── */}
           {tab==="stash"&&<StashTab stash={stash} accent={accent} stashFilter={stashFilter} setStashFilter={setStashFilter} stashSearch={stashSearch} setStashSearch={setStashSearch} onSelect={setSelectedItem} onRepeat={repeatLast} strainMap={strainMap} setStrainView={setStrainView} setTab={switchTab} />}
@@ -1236,8 +1236,8 @@ function SessionOverlay({sessionPhase,setSessionPhase,sessionData,setSessionData
   const stepLabels = ["Load","Heat","Session","Effects","Rate"];
 
   return (
-    <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(4,4,12,0.98)",display:"flex",flexDirection:"column",alignItems:"center"}}>
-      <div style={{position:"relative",zIndex:1,width:"100%",maxWidth:440,padding:"0 24px",display:"flex",flexDirection:"column",height:"100%",overflowY:"auto",paddingTop:28,paddingBottom:40}}>
+    <div style={{position:"fixed",inset:0,zIndex:60,background:"rgba(4,4,12,0.98)",overflowY:"auto",WebkitOverflowScrolling:"touch"}}>
+      <div style={{position:"relative",zIndex:1,width:"100%",maxWidth:440,margin:"0 auto",padding:"0 24px",display:"flex",flexDirection:"column",minHeight:"100%",paddingTop:"max(28px, env(safe-area-inset-top, 28px))",paddingBottom:40}}>
 
         {/* Step Indicator */}
         <div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:0,marginBottom:24,padding:"0 10px"}}>
@@ -2459,11 +2459,8 @@ function ShareCard({item,accent,onClose}) {
   );
 }
 
-// Mount the app
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(React.createElement(PuffcoCompanion));
-
-// Register service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js').catch(() => {});
 }
